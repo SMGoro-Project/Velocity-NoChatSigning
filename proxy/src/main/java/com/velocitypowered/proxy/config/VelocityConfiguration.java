@@ -90,7 +90,7 @@ public class VelocityConfiguration implements ProxyConfig {
   private net.kyori.adventure.text.@MonotonicNonNull Component motdAsComponent;
   private @Nullable Favicon favicon;
   @Expose
-  private boolean forceKeyAuthentication = true; // Added in 1.19
+  private boolean forceKeyAuthentication = false; // Added in 1.19
 
   private VelocityConfiguration(Servers servers, ForcedHosts forcedHosts, Advanced advanced,
       Query query, Metrics metrics) {
@@ -551,7 +551,7 @@ public class VelocityConfiguration implements ProxyConfig {
     String motd = config.getOrElse("motd", "&#09add3A Velocity Server");
     int maxPlayers = config.getIntOrElse("show-max-players", 500);
     Boolean onlineMode = config.getOrElse("online-mode", true);
-    Boolean forceKeyAuthentication = config.getOrElse("force-key-authentication", true);
+    Boolean forceKeyAuthentication = config.getOrElse("force-key-authentication", false);
     Boolean announceForge = config.getOrElse("announce-forge", true);
     Boolean preventClientProxyConnections = config.getOrElse("prevent-client-proxy-connections",
         true);
@@ -564,6 +564,12 @@ public class VelocityConfiguration implements ProxyConfig {
         && (forwardingMode == PlayerInfoForwarding.MODERN
         || forwardingMode == PlayerInfoForwarding.BUNGEEGUARD)) {
       throw new RuntimeException("The forwarding-secret file must not be empty.");
+    }
+
+    // Warn against using force-key-authentication
+    if (forceKeyAuthentication) {
+      logger.warn("force-key-authentication is enabled. You should disable this if you want chat " +
+                  "plugins to be able to cancel messages correctly, otherwise you may see duplicate messages.");
     }
 
     return new VelocityConfiguration(

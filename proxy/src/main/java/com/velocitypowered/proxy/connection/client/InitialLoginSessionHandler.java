@@ -73,16 +73,14 @@ public class InitialLoginSessionHandler implements MinecraftSessionHandler {
   private @MonotonicNonNull ServerLogin login;
   private byte[] verify = EMPTY_BYTE_ARRAY;
   private LoginState currentState = LoginState.LOGIN_PACKET_EXPECTED;
-  private boolean forceKeyAuthentication;
+  private final boolean forceKeyAuthentication;
 
   InitialLoginSessionHandler(VelocityServer server, MinecraftConnection mcConnection,
       LoginInboundConnection inbound) {
     this.server = Preconditions.checkNotNull(server, "server");
     this.mcConnection = Preconditions.checkNotNull(mcConnection, "mcConnection");
     this.inbound = Preconditions.checkNotNull(inbound, "inbound");
-    this.forceKeyAuthentication = System.getProperties().containsKey("auth.forceSecureProfiles")
-        ? Boolean.getBoolean("auth.forceSecureProfiles")
-        : server.getConfiguration().isForceKeyAuthentication();
+    this.forceKeyAuthentication = server.getConfiguration().isForceKeyAuthentication();
   }
 
   @Override

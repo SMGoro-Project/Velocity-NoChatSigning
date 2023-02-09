@@ -568,8 +568,8 @@ public class VelocityConfiguration implements ProxyConfig {
 
     // Warn against using force-key-authentication
     if (forceKeyAuthentication) {
-      logger.warn("force-key-authentication is enabled. You should disable this if you want chat " +
-                  "plugins to be able to cancel messages correctly, otherwise you may see duplicate messages.");
+      logger.warn("force-key-authentication is enabled. You should disable this if you want chat "
+                  + "plugins to cancel messages correctly, or you may see duplicate messages.");
     }
 
     return new VelocityConfiguration(

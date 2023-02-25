@@ -68,7 +68,8 @@ public class SystemChat implements MinecraftPacket {
           buf.writeBoolean(true);
           break;
         default:
-          throw new IllegalArgumentException("Invalid chat type");
+          buf.writeBoolean(false);
+          // throw new IllegalArgumentException("Invalid chat type");
       }
     } else {
       ProtocolUtils.writeVarInt(buf, type.getId());

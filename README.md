@@ -13,6 +13,7 @@ chat API, but it's not ready yet. When that is ready, you should probably
 use that. I personally don't care about Mojang's new signed chat system,
 though, and this is a quick fix that bypasses their checks.
 
+
 ## Goals
 
 * A codebase that is easy to dive into and consistently follows best practices
